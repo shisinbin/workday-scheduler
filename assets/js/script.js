@@ -85,7 +85,6 @@ function init() {
 
   // check that storage is not empty
   if (schedule !== null) {
-    console.log('schedule is not empty');
     for (var hour in schedule) {
       // hour = Number(hour); // not sure I need this
       if (schedule[hour] !== '') {
@@ -105,7 +104,6 @@ function init() {
     for (var i = 0; i < WORK_HOURS; i++) {
       schedule[START_TIME + i] = '';
     }
-    console.log(schedule);
   }
 }
 
@@ -113,11 +111,10 @@ function init() {
 scheduleEl.on('click', 'button', function () {
   // grab the text
   var hourEvent = $(this).parent().children('textarea').val();
-  console.log(hourEvent);
 
   // if the text is empty, exit
   if (hourEvent === '') {
-    console.log('no text, buddy!');
+    console.log('no text, buddy!'); // put this in feedback
     return;
   }
 
@@ -128,14 +125,11 @@ scheduleEl.on('click', 'button', function () {
   // make the necessary change in tracking schedule object
   schedule[hour] = hourEvent;
 
-  console.log(schedule);
-
   // update storage with this amended schedule
   updateStorage(schedule);
 
   // also quick check to ensure clear button is showing
   if (clearScheduleBtn.css('display') === 'none') {
-    console.log('display');
     clearScheduleBtn.css('display', '');
   }
 });

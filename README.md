@@ -1,2 +1,7 @@
-# workday-scheduler
-Using jQuery, jQuery UI, Moment.js to build a scheduler app
+# Workday Scheduler
+
+https://hilarious-torte-daaee3.netlify.app/
+
+## Description
+
+Yikes.
