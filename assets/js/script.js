@@ -1,6 +1,6 @@
 // constants - their total should not be >=24
 // so maybe need to code this check
-const WORK_HOURS = 8;
+const WORK_HOURS = 9; // upping this to 9 so that I get a row for 5pm
 const START_TIME = 9;
 
 // grab html elements
