@@ -27,13 +27,13 @@ currentDayEl.text(rightNow.format('dddd, MMMM Do'));
 
 // function to deal with feedback
 function showFeedback(message) {
-  feedbackEl.css('display', ''); // show feedback element
+  feedbackEl.show(); // show feedback, could have used css('display', '')
   feedbackEl.append(message); // need to append to get code tags to work
 
   // a timeout to hide the message after 2 secs
   setTimeout(function () {
     feedbackEl.empty();
-    feedbackEl.css('display', 'none');
+    feedbackEl.hide(); // could have used .css('display', 'none')
   }, 2000);
 }
 
@@ -91,6 +91,63 @@ function createLayout() {
   }
 }
 
+// function for clearing the schedule
+function handleClear() {
+  var confirmClear = confirm(
+    "Are you sure you want to clear today's schedule?"
+  );
+  if (confirmClear) {
+    clearSchedule();
+
+    showFeedback('Events cleared from <code>localStorage</code> ✔️');
+    trashSfx.play();
+
+    // also hide the clear button
+    clearScheduleBtn.hide();
+  }
+}
+
+// function for saving an event.
+// takes in the button element of the event being saved as a parameter
+function saveEvent(element) {
+  // reference the button being clicked on
+  var button = $(element);
+  // grab the text in the coresponding textarea
+  var hourEvent = button.siblings().filter('textarea').val();
+
+  // if the text is empty, exit
+  if (hourEvent === '') {
+    showFeedback('No text entered!');
+    return;
+  }
+
+  // grab the hour
+  var hourIndex = button.closest('.row').attr('id');
+  var hour = Number(hourIndex.split('-')[1]);
+
+  // check the event hasn't already been stored
+  if (schedule[hour] === hourEvent) {
+    showFeedback('Event already stored!');
+    return;
+  }
+
+  // make the necessary change in tracking schedule object
+  schedule[hour] = hourEvent;
+
+  // update storage with this amended schedule
+  updateStorage(schedule);
+
+  // show some feedback
+  showFeedback('Event added to <code>localStorage</code> ✔️');
+  successSfx.play();
+
+  // also quick check to ensure clear button is showing
+  if (clearScheduleBtn.css('display') === 'none') {
+    clearScheduleBtn.show();
+  }
+}
+
+// load page
 function init() {
   // create layout
   createLayout();
@@ -112,7 +169,7 @@ function init() {
     }
 
     // display the clear button
-    clearScheduleBtn.css('display', '');
+    clearScheduleBtn.show();
   } else {
     // set schedule to appropriately 'empty' object
     schedule = {};
@@ -124,55 +181,10 @@ function init() {
 
 // event listener for clicking save button
 scheduleEl.on('click', 'button', function () {
-  // grab the text
-  var hourEvent = $(this).parent().children('textarea').val();
-
-  // if the text is empty, exit
-  if (hourEvent === '') {
-    showFeedback('No text entered!');
-    return;
-  }
-
-  // grab the hour
-  var hourIndex = $(this).closest('.row').attr('id');
-  var hour = Number(hourIndex.split('-')[1]);
-
-  // check the event hasn't already been stored
-  if (schedule[hour] === hourEvent) {
-    showFeedback('Event already stored!');
-    return;
-  }
-
-  // make the necessary change in tracking schedule object
-  schedule[hour] = hourEvent;
-
-  // update storage with this amended schedule
-  updateStorage(schedule);
-
-  // show some feedback
-  showFeedback('Event added to <code>localStorage</code> ✔️');
-  successSfx.play();
-
-  // also quick check to ensure clear button is showing
-  if (clearScheduleBtn.css('display') === 'none') {
-    clearScheduleBtn.css('display', '');
-  }
+  saveEvent($(this)); // passing $(this) as an argument to a named function
 });
 
 // event listener for clearing schedule
-clearScheduleBtn.on('click', function () {
-  var confirmClear = confirm(
-    "Are you sure you want to clear today's schedule?"
-  );
-  if (confirmClear) {
-    clearSchedule();
-
-    showFeedback('Events cleared from <code>localStorage</code> ✔️');
-    trashSfx.play();
-
-    // also hide the clear button
-    clearScheduleBtn.css('display', 'none');
-  }
-});
+clearScheduleBtn.on('click', handleClear);
 
 init();
