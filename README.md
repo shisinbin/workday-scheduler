@@ -37,7 +37,7 @@ Users can clear the schedule by clicking the 'Clear Schedule' button on the bott
 
 ## Credits
 
-[ChatGPT](https://chat.openai.com) is pretty amazing (but also pretty depressing). Using it helped to quickly answer questions on how to do some of the basic specific things and thus saved some time with scrolling through and searching the jQuery [docs](https://api.jquery.com/) or [Stack Overflow](https://stackoverflow.com), although the latter two were still needed.
+[ChatGPT](https://chat.openai.com) is pretty amazing (but also scarily depressing?). Using it helped to quickly answer questions on how to do some of the basic specific things and thus saved some time with scrolling through and searching the [jQuery docs](https://api.jquery.com/) or [Stack Overflow](https://stackoverflow.com), although the latter two were still needed.
 
 Other credits:
 
