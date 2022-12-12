@@ -25,7 +25,7 @@ Users can store an event by entering text into the time block's text area and th
 
 ![screenshot of console output](assets/img/ss2.png)
 
-There are checks to ensure the user has entered an event or not tried saving the same event in that hour again. If valid, the event is saved to the browser's local storage and an appropriate feedback message is shown. So, if the user refreshes the page or close the app and comes back later that day, the events that were entered will persist in the schedule.
+There are checks to ensure the user has entered an event or not tried saving the same event in that hour again. If valid, the event is saved to the browser's local storage and an appropriate feedback message is shown. So, if the user refreshes the page or closes the app and comes back later that day, the events that were entered will persist in the schedule.
 
 ![screenshot of console output](assets/img/ss3.png)
 
