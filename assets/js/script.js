@@ -3,6 +3,11 @@
 const WORK_HOURS = 9; // upping this to 9 so that I get a row for 5pm
 const START_TIME = 9;
 
+// audio stuff for feedback
+var successSfx = new Audio('./assets/sfx/powerup-success.wav');
+var trashSfx = new Audio('./assets/sfx/trash-fall.wav');
+// var failureSfx = new Audio('.assets/sfx/failure-01.wav');
+
 // grab html elements
 var currentDayEl = $('#current-day');
 var scheduleEl = $('main');
@@ -20,6 +25,15 @@ var thisHour = Number(rightNow.format('H')); // get the 'military' hour
 currentDayEl.text(rightNow.format('dddd, MMMM Do'));
 
 // function to deal with feedback
+function showFeedback(message) {
+  feedbackEl.css('display', ''); // show feedback element
+  feedbackEl.append(message); // show feedback text
+
+  setTimeout(function () {
+    feedbackEl.empty();
+    feedbackEl.css('display', 'none');
+  }, 2000);
+}
 
 // function to return context for each hour
 function getContext(scheduleHour) {
@@ -64,7 +78,6 @@ function createLayout() {
     timeRowEl.addClass(getContext(Number(hourMoment.format('H'))));
 
     // i can just append the rest
-    // because i only need to keep track of each time block
     timeRowEl.append(
       `<div class="col-md-1 hour">${hourMoment.format('hA')}</div>
       <textarea class="col-md-10 description"></textarea>
@@ -86,12 +99,12 @@ function init() {
   // check that storage is not empty
   if (schedule !== null) {
     for (var hour in schedule) {
-      // hour = Number(hour); // not sure I need this
+      // check that there is a stored event for this hour
       if (schedule[hour] !== '') {
-        // grab the hour element
+        // grab the corresponding html hour element
         var thisHourEl = $(`#hour-${hour}`);
 
-        // set the value/text to whatever is stored for this hour
+        // set the value inside textarea to whatever is stored for this hour
         thisHourEl.children('textarea').val(schedule[hour]);
       }
     }
@@ -114,7 +127,7 @@ scheduleEl.on('click', 'button', function () {
 
   // if the text is empty, exit
   if (hourEvent === '') {
-    console.log('no text, buddy!'); // put this in feedback
+    showFeedback('No text entered!');
     return;
   }
 
@@ -122,11 +135,21 @@ scheduleEl.on('click', 'button', function () {
   var hourIndex = $(this).closest('.row').attr('id');
   var hour = Number(hourIndex.split('-')[1]);
 
+  // check the event hasn't already been stored
+  if (schedule[hour] === hourEvent) {
+    showFeedback('Event already stored!');
+    return;
+  }
+
   // make the necessary change in tracking schedule object
   schedule[hour] = hourEvent;
 
   // update storage with this amended schedule
   updateStorage(schedule);
+
+  // show some feedback
+  showFeedback('Event added to <code>localStorage</code> ✔️');
+  successSfx.play();
 
   // also quick check to ensure clear button is showing
   if (clearScheduleBtn.css('display') === 'none') {
@@ -141,6 +164,9 @@ clearScheduleBtn.on('click', function () {
   );
   if (confirmClear) {
     clearSchedule();
+
+    showFeedback('Events cleared from <code>localStorage</code> ✔️');
+    trashSfx.play();
 
     // also hide the clear button
     clearScheduleBtn.css('display', 'none');

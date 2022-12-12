@@ -12,6 +12,16 @@ body {
   border-bottom: 10px solid black;
 }
 
+.feedback {
+  text-align:center;
+  font-style: italic;
+  font-size: 120%;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  color: gray;
+  /* border-top: 2px solid #ccc; */
+}
+
 textarea {
   background: transparent;
   border: none;
