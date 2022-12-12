@@ -1,5 +1,6 @@
 // constants - their total should not be >=24
-// so maybe need to code this check
+// so if I introduced a feature that allowed user to set these values
+// then I'd need to have this check somewhere
 const WORK_HOURS = 9; // upping this to 9 so that I get a row for 5pm
 const START_TIME = 9;
 
@@ -14,7 +15,7 @@ var scheduleEl = $('main');
 var clearScheduleBtn = $('#clear-schedule');
 var feedbackEl = $('.feedback');
 
-// global schedule object
+// global schedule object for tracking stored events
 var schedule = {};
 
 // moment stuff
@@ -27,8 +28,9 @@ currentDayEl.text(rightNow.format('dddd, MMMM Do'));
 // function to deal with feedback
 function showFeedback(message) {
   feedbackEl.css('display', ''); // show feedback element
-  feedbackEl.append(message); // show feedback text
+  feedbackEl.append(message); // need to append to get code tags to work
 
+  // a timeout to hide the message after 2 secs
   setTimeout(function () {
     feedbackEl.empty();
     feedbackEl.css('display', 'none');
