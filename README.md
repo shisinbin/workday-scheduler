@@ -21,7 +21,7 @@ The user is presented with a schedule that displays a block of time representing
 
 Each time block is coloured according to whether it includes the current time (red), a previous time (grey) or a future time (green).
 
-Users can store an event by entering text into the time block's text area and then clicking the save button on the right.
+Users can store an event by entering text into the time block's text area and then clicking on its save button on the right.
 
 ![screenshot of console output](assets/img/ss2.png)
 
