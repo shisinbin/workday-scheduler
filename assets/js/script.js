@@ -25,7 +25,7 @@ var thisHour = Number(rightNow.format('H')); // get the 'military' hour
 // display current date at top of page
 currentDayEl.text(rightNow.format('dddd, MMMM Do'));
 
-// function to deal with feedback
+// helper function to deal with feedback
 function showFeedback(message) {
   feedbackEl.show(); // show feedback, could have used css('display', '')
   feedbackEl.append(message); // need to append to get code tags to work
@@ -37,7 +37,7 @@ function showFeedback(message) {
   }, 2000);
 }
 
-// function to return context for each hour
+// helper function to return context for each hour
 function getContext(scheduleHour) {
   if (thisHour > scheduleHour) {
     return 'past';
@@ -45,16 +45,6 @@ function getContext(scheduleHour) {
     return 'present';
   } else {
     return 'future';
-  }
-}
-
-// function to clear schedule
-function clearSchedule() {
-  schedule = {};
-  localStorage.removeItem('schedule');
-  for (var i = 0; i < WORK_HOURS; i++) {
-    // empty textarea's
-    $('.row').children('textarea').val('');
   }
 }
 
@@ -91,18 +81,25 @@ function createLayout() {
   }
 }
 
-// function for clearing the schedule
+// function for clearing schedule
 function handleClear() {
   var confirmClear = confirm(
     "Are you sure you want to clear today's schedule?"
   );
   if (confirmClear) {
-    clearSchedule();
-
+    // set tracking object to empty
+    schedule = {};
+    // remove local storage item
+    localStorage.removeItem('schedule');
+    for (var i = 0; i < WORK_HOURS; i++) {
+      // empty textarea's
+      $('.row').children('textarea').val('');
+    }
+    // give appropriate feedback
     showFeedback('Events cleared from <code>localStorage</code> ✔️');
     trashSfx.play();
 
-    // also hide the clear button
+    // finally hide the clear button
     clearScheduleBtn.hide();
   }
 }
@@ -112,7 +109,7 @@ function handleClear() {
 function saveEvent(element) {
   // reference the button being clicked on
   var button = $(element);
-  // grab the text in the coresponding textarea
+  // grab the text in the corresponding textarea
   var hourEvent = button.siblings().filter('textarea').val();
 
   // if the text is empty, exit
@@ -159,6 +156,7 @@ function init() {
   if (schedule !== null) {
     for (var hour in schedule) {
       // check that there is a stored event for this hour
+      // don't think I need this check anymore but doesn't hurt
       if (schedule[hour] !== '') {
         // grab the corresponding html hour element
         var thisHourEl = $(`#hour-${hour}`);
@@ -173,9 +171,10 @@ function init() {
   } else {
     // set schedule to appropriately 'empty' object
     schedule = {};
-    for (var i = 0; i < WORK_HOURS; i++) {
-      schedule[START_TIME + i] = '';
-    }
+    // don't think I need this logic really
+    // for (var i = 0; i < WORK_HOURS; i++) {
+    //   schedule[START_TIME + i] = '';
+    // }
   }
 }
 
