@@ -1,5 +1,11 @@
 # Workday Scheduler
 
+<!-- [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
+
+[![JavaScript](https://img.shields.io/badge/--F7DF1E?logo=javascript&logoColor=000)](https://www.javascript.com/) -->
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white) <img alt='moment.js badge' src='https://shields.io/badge/Moment.js-grey?logo=appveyor&style=for-the-badge'>
+
 ## Description
 
 A simple calendar application that allows a user to save events for each hour of the current working day.
@@ -43,6 +49,9 @@ Other credits:
 
 - [GabrielAraujo - powerup/success.wav \[freesound\]](https://freesound.org/people/GabrielAraujo/sounds/242501/)
 - [philberts - trash_fall.wav \[freesound\]](https://freesound.org/people/philberts/sounds/71512/)
+- [Markdown Badges \[GitHub\]](https://github.com/Ileriayo/markdown-badges)
+- [Custom Badges \[GitHub\]](https://gist.github.com/afig/be5ab20c50062dba7cb835e30206659a)
+- [shields.io](https://shields.io/)
 
 The base HTML and CSS were provided by the course and not created by myself.
 
