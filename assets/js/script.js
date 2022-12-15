@@ -63,14 +63,13 @@ function handleClear() {
     schedule = {};
     // remove local storage item
     localStorage.removeItem('schedule');
-    for (var i = 0; i < WORK_HOURS; i++) {
-      // empty textarea's
-      $('.row').children('textarea').val('');
-    }
+    // remove the value of each textarea
+    $('.row').each(function () {
+      $(this).children('textarea').val('');
+    });
     // give appropriate feedback
     showFeedback('Events cleared from <code>localStorage</code> ✔️');
     trashSfx.play();
-
     // finally hide the clear button
     clearScheduleBtn.hide();
   }
