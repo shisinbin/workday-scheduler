@@ -149,10 +149,18 @@ function init() {
   // create layout
   createLayout();
 
+  // add event listener for clicking save button
+  scheduleEl.on('click', 'button', function () {
+    saveEvent($(this)); // passing $(this) as an argument to a named function
+  });
+
+  // add event listener for clearing schedule
+  clearScheduleBtn.on('click', handleClear);
+
   // get stored schedule
   schedule = JSON.parse(localStorage.getItem('schedule'));
 
-  // check that storage is not empty
+  // check that there is schedule in local storage
   if (schedule !== null) {
     for (var hour in schedule) {
       // check that there is a stored event for this hour
@@ -177,13 +185,5 @@ function init() {
     // }
   }
 }
-
-// event listener for clicking save button
-scheduleEl.on('click', 'button', function () {
-  saveEvent($(this)); // passing $(this) as an argument to a named function
-});
-
-// event listener for clearing schedule
-clearScheduleBtn.on('click', handleClear);
 
 init();
