@@ -1,9 +1,5 @@
 # Workday Scheduler
 
-## Deployed link
-
-https://hilarious-torte-daaee3.netlify.app/
-
 ## Description
 
 A simple calendar application that allows a user to save events for each hour of the current working day.
@@ -14,6 +10,10 @@ This app was built to further my understanding of how to:
 - create time-based operations using [Moment.js](https://momentjs.com/)
 
 ## Usage
+
+The application is accessible by navigating to the link below.
+
+https://hilarious-torte-daaee3.netlify.app/
 
 The user is presented with a schedule that displays a block of time representing one hour for each row. Time blocks begin from 9am up to (and including) 5pm, that is, it shows the current "working day".
 
