@@ -53,34 +53,6 @@ function updateStorage(obj) {
   localStorage.setItem('schedule', JSON.stringify(obj));
 }
 
-// function for creating the layout
-function createLayout() {
-  // for each hour, add a row
-  for (var i = 0; i < WORK_HOURS; i++) {
-    // grab the hour moment
-    var hourMoment = moment(START_TIME + i, 'HH');
-
-    // create a new row
-    var timeRowEl = $('<div>').addClass('row time-block');
-
-    // adding an id representing the hour onto each row (e.g. id='hour-14' reps 2pm)
-    timeRowEl.attr('id', `hour-${hourMoment.format('H')}`);
-
-    // coloring the row
-    timeRowEl.addClass(getContext(Number(hourMoment.format('H'))));
-
-    // i can just append the rest
-    timeRowEl.append(
-      `<div class="col-md-1 hour">${hourMoment.format('hA')}</div>
-      <textarea class="col-md-10 description"></textarea>
-      <button class="col-md-1 btn saveBtn"><i class="fas fa-save"></i></button>`
-    );
-
-    // append to main
-    timeRowEl.appendTo(scheduleEl);
-  }
-}
-
 // function for clearing schedule
 function handleClear() {
   var confirmClear = confirm(
@@ -141,6 +113,34 @@ function saveEvent(element) {
   // also quick check to ensure clear button is showing
   if (clearScheduleBtn.css('display') === 'none') {
     clearScheduleBtn.show();
+  }
+}
+
+// function for creating the layout
+function createLayout() {
+  // for each hour, add a row
+  for (var i = 0; i < WORK_HOURS; i++) {
+    // grab the hour moment
+    var hourMoment = moment(START_TIME + i, 'HH');
+
+    // create a new row
+    var timeRowEl = $('<div>').addClass('row time-block');
+
+    // adding an id representing the hour onto each row (e.g. id='hour-14' reps 2pm)
+    timeRowEl.attr('id', `hour-${hourMoment.format('H')}`);
+
+    // coloring the row
+    timeRowEl.addClass(getContext(Number(hourMoment.format('H'))));
+
+    // i can just append the rest
+    timeRowEl.append(
+      `<div class="col-md-1 hour">${hourMoment.format('hA')}</div>
+      <textarea class="col-md-10 description"></textarea>
+      <button class="col-md-1 btn saveBtn"><i class="fas fa-save"></i></button>`
+    );
+
+    // append to main
+    timeRowEl.appendTo(scheduleEl);
   }
 }
 
